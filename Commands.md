@@ -6,15 +6,10 @@ A concise reference to core Docker commands and workflows.
 
 ## 1. Installation
 
-* **Install Docker Desktop (Windows/Mac)**: Download from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+* **Install Docker Desktop (Windows/Mac)**
 * **Verify Installation**:
 
-  ```bash
-  docker --version
-  docker compose version
-  ```
 
----
 
 ## 2. Key Concepts
 
