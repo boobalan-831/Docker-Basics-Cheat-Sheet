@@ -1,195 +1,99 @@
----
+# Docker Cheat Sheet
 
-# Docker Basics Cheat Sheet
-
-A concise reference to core Docker commands and workflows.
-
-## 1. Installation
-
-* **Install Docker Desktop (Windows/Mac)**
-* **Verify Installation**:
-
-
-
-## 2. Key Concepts
-
-* **Image**: Immutable snapshot built from a Dockerfile.
-* **Container**: Running instance of an image.
-* **Dockerfile**: Text recipe defining how to build an image.
-* **Volume**: Persistent storage for containers.
-* **Network**: Allows containers to communicate.
-* **Docker Compose**: Define and run multi-container apps with a YAML file.
+**By Boobalan D.**  
+_A concise reference to core Docker commands and workflows._
 
 ---
 
-## 3. Basic Docker Commands
+## 📦 1. Installation & Setup
 
-### 3.1 Image Operations
-
-* **Build an image**:
-
-  ```bash
-  docker build -t <image_name> .
-  ```
-* **List images**:
-
-  ```bash
-  docker images
-  ```
-* **Remove an image**:
-
-  ```bash
-  docker rmi <image_name_or_id>
-  ```
-
-### 3.2 Container Operations
-
-* **Run a container**:
-
-  ```bash
-  docker run -d -p <host_port>:<container_port> --name <container_name> <image_name>
-  ```
-* **List running containers**:
-
-  ```bash
-  docker ps
-  ```
-* **List all containers**:
-
-  ```bash
-  docker ps -a
-  ```
-* **Stop a container**:
-
-  ```bash
-  docker stop <container_id_or_name>
-  ```
-* **Remove a container**:
-
-  ```bash
-  docker rm <container_id_or_name>
-  ```
-* **View logs**:
-
-  ```bash
-  docker logs <container_id_or_name>
-  ```
-* **Execute shell inside**:
-
-  ```bash
-  docker exec -it <container_name> bash
-  ```
-
-### 3.3 Volume Management
-
-* **Run with volume**:
-
-  ```bash
-  docker run -v /host/path:/container/path <image_name>
-  ```
-* **List volumes**:
-
-  ```bash
-  docker volume ls
-  ```
-* **Remove volume**:
-
-  ```bash
-  docker volume rm <volume_name>
-  ```
-
-### 3.4 Networking
-
-* **List networks**:
-
-  ```bash
-  docker network ls
-  ```
-* **Inspect network**:
-
-  ```bash
-  docker network inspect <network_name>
-  ```
+| Command                             | Description                                              |
+|-------------------------------------|----------------------------------------------------------|
+| `docker --version`                  | Show Docker Engine version.                              |
+| `docker compose version`            | Show Docker Compose version.                             |
+| `docker login`                      | Log in to Docker Hub (for push/pull operations).         |
+| `docker logout`                     | Log out from Docker Hub.                                 |
 
 ---
 
-## 4. Docker Compose Commands
+## 🧠 2. Core Concepts
 
-* **Start services**:
-
-  ```bash
-  docker compose up
-  ```
-* **Start in background**:
-
-  ```bash
-  docker compose up -d
-  ```
-* **Rebuild services**:
-
-  ```bash
-  docker compose build --no-cache
-  ```
-* **Stop and remove containers, networks**:
-
-  ```bash
-  docker compose down
-  ```
+- **Image**: Read‑only template built from a Dockerfile.  
+- **Container**: Running instance of an image.  
+- **Dockerfile**: Text “recipe” that defines how to build an image.  
+- **Volume**: Persistent data storage shared between host & container.  
+- **Network**: Virtual LAN for container‑to‑container communication.  
+- **Compose**: Tool to define/run multi‑container apps via a YAML file.
 
 ---
 
-## 5. Docker Hub (Registry)
+## 🛠️ 3. Basic Docker CLI Commands
 
-### 5.1 Authenticate
+### 3.1 Image Management
 
-```bash
-docker login
-```
+| Command                                      | Description                                  |
+|----------------------------------------------|----------------------------------------------|
+| `docker build -t <name>:<tag> <path>`        | Build an image from a Dockerfile.            |
+| `docker images`                              | List all local images.                       |
+| `docker pull <image>:<tag>`                  | Download image from Docker Hub.              |
+| `docker tag <src> <username>/<repo>:<tag>`   | Add a new tag to a local image.              |
+| `docker push <username>/<repo>:<tag>`        | Upload image to Docker Hub.                  |
+| `docker rmi <image_or_id>`                   | Remove one or more local images.             |
 
-### 5.2 Pull an image
+### 3.2 Container Management
 
-```bash
-docker pull <username>/<image>:<tag>
-```
+| Command                                                   | Description                               |
+|-----------------------------------------------------------|-------------------------------------------|
+| `docker run -d -p <host>:<container> --name <name> <img>`  | Run container in detached mode.           |
+| `docker ps`                                               | List running containers.                  |
+| `docker ps -a`                                            | List all containers (running & stopped).  |
+| `docker stop <container>`                                 | Stop a running container.                 |
+| `docker rm <container>`                                   | Remove one or more stopped containers.    |
+| `docker logs <container>`                                 | View container logs.                      |
+| `docker exec -it <container> bash`                        | Start a shell inside a running container. |
 
-### 5.3 Tag an image
+### 3.3 Data & Networking
 
-```bash
-docker tag <local_image> <username>/<repo>:<tag>
-```
-
-### 5.4 Push an image
-
-```bash
-docker push <username>/<repo>:<tag>
-```
-
-### 5.5 Save & Load (Offline Sharing)
-
-* **Save image to tar**:
-
-  ```bash
-  docker save <image_name> > image.tar
-  ```
-* **Load image from tar**:
-
-  ```bash
-  docker load < image.tar
-  ```
+| Command                                                   | Description                                         |
+|-----------------------------------------------------------|-----------------------------------------------------|
+| `docker volume create <name>`                             | Create a named volume.                              |
+| `docker volume ls`                                        | List all volumes.                                   |
+| `docker run -v <host>:/<container> <image>`               | Mount host directory or volume into container.      |
+| `docker network ls`                                       | List networks.                                      |
+| `docker network create <name>`                            | Create a user-defined network.                     |
+| `docker network connect <network> <container>`            | Connect container to a network.                    |
 
 ---
 
-## 6. Handy Tips
+## 📑 4. Docker Compose Commands
 
-* Use descriptive image and container names.
-* Leverage Docker caching by ordering `COPY` and `RUN` intelligently.
-* Clean up unused resources:
+| Command                                        | Description                                          |
+|------------------------------------------------|------------------------------------------------------|
+| `docker compose up`                            | Build, (re)create, start, and attach to containers.  |
+| `docker compose up -d`                         | Same as above, but in detached mode.                 |
+| `docker compose build --no-cache`              | Build services without cache.                        |
+| `docker compose ps`                            | List containers for a Compose project.               |
+| `docker compose logs`                          | View output from services.                           |
+| `docker compose down`                          | Stop and remove containers, networks, volumes.       |
 
+---
+
+## 🌐 5. Docker Hub & Image Sharing
+
+| Command                                   | Description                                       |
+|-------------------------------------------|---------------------------------------------------|
+| `docker login`                            | Authenticate to Docker Hub.                       |
+| `docker pull <user>/<repo>:<tag>`         | Pull an image from your Docker Hub repository.    |
+| `docker push <user>/<repo>:<tag>`         | Push a local image to your Docker Hub repository. |
+| `docker save <image> > image.tar`         | Export an image to a tar archive.                 |
+| `docker load < image.tar`                 | Import an image from a tar archive.               |
+
+---
+
+## 💡 6. Handy Tips
+
+- Order Dockerfile instructions to maximize layer caching (`COPY requirements.txt` before `COPY . .`).  
+- Use **descriptive names** and **tags** (e.g. `myapp:1.0`).  
+- Clean up unused resources:  
   ```bash
   docker system prune -a
-  ```
-* Store secrets via environment variables or Docker secrets (not in Dockerfile).
-
----
-
-*End of Cheat Sheet.*
