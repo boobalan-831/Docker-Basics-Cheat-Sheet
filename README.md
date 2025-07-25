@@ -1,6 +1,4 @@
 🔰 Basics
-bash
-Copy
 Edit
 # 🐋 Run a container
 docker run hello-world
@@ -27,8 +25,7 @@ docker pull nginx
 docker push <your_repo>/<image>:tag
 ⚙️ Dockerfile Essentials
 dockerfile
-Copy
-Edit
+
 # ✍️ Start from base image
 FROM node:18
 
@@ -47,9 +44,7 @@ EXPOSE 3000
 # 🏁 Start command
 CMD ["npm", "start"]
 🧪 Intermediate Usage
-bash
-Copy
-Edit
+
 # 👁️ Inspect container details
 docker inspect <container>
 
@@ -71,8 +66,7 @@ docker logs -f <container>
 docker-compose.yml
 
 yaml
-Copy
-Edit
+
 version: "3"
 services:
   web:
@@ -83,9 +77,7 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-bash
-Copy
-Edit
+
 # 🚀 Start all services
 docker-compose up -d
 
@@ -95,9 +87,6 @@ docker-compose down
 # 🔎 View service logs
 docker-compose logs -f
 🧠 Advanced
-bash
-Copy
-Edit
 # 📊 Resource usage
 docker stats
 
